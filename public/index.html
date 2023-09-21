@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toy API Documentation</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f7f7f7;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            margin-top: 0;
+        }
+
+        .route-title {
+            font-size: 24px;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .route-content {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 4px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        table th {
+            text-align: start;
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        table tbody tr:hover {
+            background-color: #f0f0f0;
+        }
+
+        footer {
+            background-color: inherit;
+            color: #241616;
+            text-align: center;
+            padding: 10px;
+        }
+
+        table {
+            border-collapse: separate;
+            border-spacing: 10px;
+        }
+
+        table td.with-space {
+            padding: 10px;
+        }
+
+        table th.with-space {
+            padding: 10px;
+        }
+
+        .display-6 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Toy API Documentation</h1>
+
+        <div class="route-section">
+            <h2 class="route-title">Authentication</h2>
+            <div class="route-content">
+                <p>
+                    Some routes in this API require authentication. To access these routes,
+                    you need to include a valid token in the request header with the key <code>x-api-key</code>.
+                </p>
+                <p>
+                    If you attempt to access an authenticated route without a valid token, you will receive a 401 Unauthorized
+                    response.
+                </p>
+            </div>
+        </div>
+
+        <div class="route-section">
+            <h2 class="route-title">Retrieve Toy Data</h2>
+            <div class="route-content">
+                <p>
+                    <strong>HTTP Method:</strong> GET<br>
+                    <strong>URL:</strong> /toys<br>
+                    <strong>Description:</strong> Retrieves toy data from the database with support for filtering and pagination.
+                </p>
+                <p>
+                    <strong>Authentication:</strong> This route does not require authentication.
+                </p>
+                <h3>Query Parameters:</h3>
+                <ul>
+                    <li><code>limit</code> (optional): Number of results to return per page (default is 10).</li>
+                    <li><code>page</code> (optional): Page number to retrieve (default is 1).</li>
+                    <li><code>s</code> (optional): Search query to filter toys by name or info.</li>
+                    <li><code>catname</code> (optional): Filter toys by category name.</li>
+                    <li><code>sort</code> (optional): Field to sort the results by (default is "_id").</li>
+                    <li><code>reverse</code> (optional): Reverse the sorting order (default is descending if "yes" is provided).</li>
+                </ul>
+
+                <h3>Example Usage:</h3>
+                <ul>
+                    <li>Retrieve the first page of 10 toys: <a href="https://netaneltoys.cyclic.cloud/toys/">https://netaneltoys.cyclic.cloud/toys/</a></li>
+                    <li>Retrieve the second page of 10 toys: <a href="https://netaneltoys.cyclic.cloud/toys/?page=2">https://netaneltoys.cyclic.cloud/toys/?page=2</a></li>
+                    <li>Retrieve the 7 first toys by the price: <a href="https://netaneltoys.cyclic.cloud/toys?perPage=7&sort=price">https://netaneltoys.cyclic.cloud/toys?perPage=7&sort=price</a></li>
+                    <li>Retrieve the 10 first toys by reversed price: <a href="https://netaneltoys.cyclic.cloud/toys/toys?sort=price&reverse=yes">https://netaneltoys.cyclic.cloud/toys/toys?sort=price&reverse=yes</a></li>
+                    <li>Retrieve the toys with the name or the info that include the word kitch: <a href="https://netaneltoys.cyclic.cloud/toys/?s=kitch">https://netaneltoys.cyclic.cloud/toys/?s=kitch</a></li>
+                    <li>Retrieve the toys with the category that include the word elec: <a href="https://netaneltoys.cyclic.cloud/toys/?catname=elec">https://netaneltoys.cyclic.cloud/toys/?catname=elec</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="route-section">
+            <h2 class="route-title">Retrieve a Single Toy</h2>
+            <div class="route-content">
+                <p>
+                    <strong>HTTP Method:</strong> GET<br>
+                    <strong>URL:</strong> /toys/single/:id<br>
+                    <strong>Description:</strong> Retrieves a single toy record by its unique ID.
+                </p>
+                <h3>URL Parameter:</h3>
+                <ul>
+                    <li><code>id</code>: Unique ID of the toy to retrieve.</li>
+                </ul>
+                <h3>Example Usage:</h3>
+                <ul>
+                    <li>Retrieve a toy with ID "650c2d570e21909efe0028f8": <a href="https://netaneltoys.cyclic.cloud/toys/single/650c2d570e21909efe0028f8">https://netaneltoys.cyclic.cloud/toys/single/650c2d570e21909efe0028f8</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="route-section">
+            <h2 class="route-title">Retrieve Toys by Price Range</h2>
+            <div class="route-content">
+                <p>
+                    <strong>HTTP Method:</strong> GET<br>
+                    <strong>URL:</strong> /toys/price<br>
+                    <strong>Description:</strong> Retrieves toys within a specified price range with support for pagination.
+                </p>
+                <h3>Query Parameters:</h3>
+                <ul>
+                    <li><code>min</code> (optional): Minimum price (default is 1).</li>
+                    <li><code>max</code> (optional): Maximum price (default is 99999).</li>
+                    <li><code>page</code> (optional): Page number to retrieve (default is 0).</li>
+                </ul>
+                <h3>Example Usage:</h3>
+                <ul>
+                    <li>Retrieve toys with prices between 60 and 120: <a href="https://netaneltoys.cyclic.cloud/toys/price?min=60&max=120">https://netaneltoys.cyclic.cloud/toys/price?min=60&max=120</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="route-section">
+            <h2 class="route-title">Create a Toy</h2>
+            <div class="route-content">
+                <p>
+                    <strong>HTTP Method:</strong> POST<br>
+                    <strong>URL:</strong> /toys<br>
+                    <strong>Description:</strong> Creates a new toy record with user authentication.
+                </p>
+                <p>
+                    <strong>Authentication:</strong> This route requires authentication. Include a valid token in the
+                    request header with the key <code>x-api-key</code>.
+                </p>
+                <h3>Request Body:</h3>
+                <p>Include the toy data in the request body as a JSON object.</p>
+                <h3>Example Usage:</h3>
+                <pre><code>
+                    /toys
+                    {
+                        "name": "Toy Name",
+                        "info": "Toy Info",
+                        "category": "Toy Category",
+                        "price": 26
+                    }
+                </code></pre>
+            </div>
+        </div>
+
+        <div class="route-section">
+            <h2 class="route-title">Update a Toy</h2>
+            <div class="route-content">
+                <p>
+                    <strong>HTTP Method:</strong> PUT<br>
+                    <strong>URL:</strong> /toys/:id<br>
+                    <strong>Description:</strong> Updates an existing toy record by its unique ID with user authentication.
+                </p>
+                <p>
+                    <strong>Authentication:</strong> This route requires authentication. Include a valid token in the
+                    request header with the key <code>x-api-key</code>.
+                </p>
+                <h3>URL Parameter:</h3>
+                <ul>
+                    <li><code>id</code>: Unique ID of the toy to update.</li>
+                </ul>
+                <h3>Request Body:</h3>
+                <p>Include the updated toy data in the request body as a JSON object.</p>
+                <h3>Example Usage:</h3>
+                <pre><code>
+                    /toys/12345
+                    {
+                        "name": "Updated Toy Name",
+                        "info": "Updated Toy Info",
+                        "category": "Updated Toy Category",
+                        "price": 29.99
+                    }
+                </code></pre>
+            </div>
+        </div>
+
+        <div class="route-section">
+            <h2 class="route-title">Delete a Toy</h2>
+            <div class="route-content">
+                <p>
+                    <strong>HTTP Method:</strong> DELETE<br>
+                    <strong>URL:</strong> /toys/:id<br>
+                    <strong>Description:</strong> Deletes an existing toy record by its unique ID with user authentication.
+                </p>
+                <p>
+                    <strong>Authentication:</strong> This route requires authentication. Include a valid token in the
+                    request header with the key <code>x-api-key</code>.
+                </p>
+                <h3>URL Parameter:</h3>
+                <ul>
+                    <li><code>id</code>: Unique ID of the toy to delete.</li>
+                </ul>
+                <h3>Example Usage:</h3>
+                <ul>
+                    <li>Delete a toy with ID "12345": <code> /toys/12345</code></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <h2 class="display-6">Users API</h2>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th class="with-space">HTTP Method</th>
+                    <th class="with-space">Route</th>
+                    <th class="with-space">Description</th>
+                    <th class="with-space">Request Body</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="with-space">GET</td>
+                    <td class="with-space">/users</td>
+                    <td class="with-space">Test endpoint to check if the server is running</td>
+                    <td class="with-space">N/A</td>
+                </tr>
+                <tr>
+                    <td class="with-space">GET</td>
+                    <td class="with-space">/users/myInfo</td>
+                    <td class="with-space">
+                        Get the information for the authenticated user (requires
+                        authentication)
+                    </td>
+                    <td class="with-space">N/A</td>
+                </tr>
+                <tr>
+                    <td class="with-space">POST</td>
+                    <td class="with-space">/users</td>
+                    <td class="with-space">Create a new user</td>
+                    <td class="with-space">{ name: String, email: String, password: String }</td>
+                </tr>
+                <tr>
+                    <td class="with-space">POST</td>
+                    <td class="with-space">/users/login</td>
+                    <td class="with-space">Authenticate a user and receive a <strong>JWT token</strong> in response</td>
+                    <td class="with-space">{ email: String, password: String }</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container mt-5">
+        <h2 class="display-6">Users/Admin Token Abilities</h2>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th class="with-space">Admin</th>
+                    <th class="with-space">Default User</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="with-space">Has the ability to add new toys to the system</td>
+                    <td class="with-space">Has the ability to add new toys to the system</td>
+                </tr>
+                <tr>
+                    <td class="with-space">Can edit all information related to any toy in the system</td>
+                    <td class="with-space">Can only edit information related to toys they have created or are associated with their account</td>
+                </tr>
+                <tr>
+                    <td class="with-space">Has the ability to delete all toys from the system</td>
+                    <td class="with-space">Can only delete toys that they have created or are associated with their account</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer>
+        <div class="container text-center">
+            <p>&copy; 2023 <strong>Netanel Aranbayev</strong></p>
+            <p>Fullstack Developer | MongoDB | Node.js</p>
+        </div>
+    </footer>
+</body>
+</html>
